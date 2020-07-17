@@ -1,0 +1,56 @@
+<div class="container" style="background-color:skyblue;margin-top:50px;">
+    <div class="row">
+      <div class="col-lg-12"> 
+        <h1 style="text-align:center;">REALTIME CHATTING APPLICATION !</h1>
+        <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" [(ngModel)]="user" [disabled]="username.touched" #username="ngModel" class="form-control" id="username" placeholder="Enter username" style="border:1px solid blue;">
+                <!-- <small id="userHelp" class="form-text text-muted">Type your username.</small> -->
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <label for="roomInput">Choose room</label>
+            <select name="roomInput" id="roomInput" class="form-control" [(ngModel)]="room" style="border:1px solid blue;">
+                <option value="IAF" selected="selected">DELHI</option>
+                <option value="ARMY">MUMBAI</option>
+                <option value="NAVY">CALCUTTA</option>
+            </select>
+        </div>
+        <div class="col sm-2">
+            <div class="pull-right"> 
+                <button type="button" class="btn btn-primary form-control" style="margin-bottom:10px;" (click)="join()">Join</button>
+                <button type="button" class="btn btn-danger form-control" (click)="leave()">Leave</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="well" style="height:300px;margin:20px 0px 20px 0px;width:100%;background-color:white;overflow: auto;" id="chat-window">
+            <div *ngFor="let item of messageArray">
+            <table class="table table-striped" style="overflow: auto;padding-left:20px;margin:0 0 0 0;">
+            <tr><th>
+            <strong>{{item.user}} : </strong> {{item.message}}
+            </th></tr>
+            </table>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-2" style="margin:20px 0px 20px 0px;">
+       Enjoy Live Chatting on This Platform. This App is developed on Angular 9, Bootstrap 4.7 and Socket.io
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10" style="margin-bottom:20px;">
+            <input type="text" class="form-control" [(ngModel)]="messageText" id="msginput" style="border:1px solid blue;" autocomplete="off">            
+        </div>
+        <div class="col-sm-2">
+                <button type="button" class="btn btn-success form-control pull-right" (click)="sendmessage()" onclick="document.getElementById('msginput').value = ''">Send</button>
+        </div>
+    </div>
+</div>
