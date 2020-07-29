@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 
 export class AppComponent {
 
-    user:string;
+    user=[];
+    users:Array<{users:string}>;
     room:string;
     messageText:string;
     messageArray:Array<{user:string,message:string}> = [];
@@ -24,6 +25,9 @@ export class AppComponent {
 
         this.WebSocketService.newMessageReceived()
         .subscribe(data=>this.messageArray.push(data));
+
+        this.WebSocketService.userslist()
+        .subscribe(data=>this.users.push(data));
     }
 
     join(){
@@ -38,5 +42,7 @@ export class AppComponent {
     {
         this.WebSocketService.sendMessage({user:this.user, room:this.room, message:this.messageText});
     }
-
+    userli(){
+        this.WebSocketService.userlist({users:this.user});
+    }
 }
