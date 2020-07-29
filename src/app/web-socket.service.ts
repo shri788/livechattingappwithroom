@@ -1,4 +1,5 @@
  
+ 
   ///<reference path="../../server/node_modules/@types/socket.io-client/index.d.ts"/>
 import { Injectable } from "@angular/core";
 import * as io from 'socket.io-client';
@@ -20,6 +21,23 @@ export class WebSocketService {
     {
         let observable = new Observable<{user:string, message:string}>(observer=>{
             this.socket.on('new user joined', (data)=>{
+                observer.next(data);
+            });
+            return () => {this.socket.disconnect();}
+        });
+
+        return observable;
+    }
+
+    userlist(data)
+    {
+        this.socket.emit('ready',data);
+    }
+
+    userslist()
+    {
+        let observable = new Observable<{users:string}>(observer=>{
+            this.socket.on('job', (data)=>{
                 observer.next(data);
             });
             return () => {this.socket.disconnect();}
